@@ -11139,7 +11139,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_PatientLocationQueryRequest>\r
    </soap:Body>\r
-</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b89bd683-ea32-49f2-a4e0-7f1c2cb39b18"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Wait for Audit table to populate" id="78ad5b78-b1ba-4455-bf53-d698df810774">
+</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b89bd683-ea32-49f2-a4e0-7f1c2cb39b18"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Wait for Audit table to populate" id="78ad5b78-b1ba-4455-bf53-d698df810774">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
