@@ -36,6 +36,17 @@
 <head>
 <title>Admin GUI Certificate Management</title>
 <link rel="icon" type="image/ico" href="/images/favicon-admingui.ico" />
+<script type='text/javascript'>
+    function enableNextCSR() {
+        var nextButton = document.getElementById('certTabView:importCertTabView:formCreateCSR:csrNextButton');
+        nextButton.removeAttribute("disabled");
+        nextButton.classList.remove("ui-state-disabled");
+    }
+    function copyCSR() {
+        document.getElementById('certTabView:importCertTabView:formCreateCSR:inputTextareaCsr').select();
+        document.execCommand('copy');
+    }
+</script>
 </head>
 
 <h:body>
@@ -43,6 +54,10 @@
 
         <ui:define name="metatag"></ui:define>
         <ui:define name="content">
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
             <h1 class="section-header">Certificate Management</h1>
             <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
             <p:tabView id="certTabView" effect="fade" effectDuration="normal" dynamic="true"
@@ -180,7 +195,6 @@
                                         <h:form class="form-horizontal" id="trustStoreForm">
                                             <p:messages id="trustStoreMsg" autoUpdate="true" closable="true"
                                                 redisplay="false" showDetail="true" />
-                                            <p:messages id="deletePassKeyErrorMsg" closable="true" autoUpdate="true" showDetail="true" />
                                             <p:panel id="certPanel" widgetVar="orgPanel"
                                                 style="width: 100%; margin: 0 auto;">
                                                 <p:panelGrid styleClass="ui-panelgrid-domain"
@@ -361,7 +375,8 @@
                                                         <li class="list-group-item"><p:commandLink
                                                                 action="#{certificateBean.resumeImportWizard(1)}"
                                                                 style="margin-right:20px;" update="@(.cssImportWizard)">
-                                                                <p:resetInput target="certTabView:importCertTabView:tabIdCreateCert" />
+                                                                <p:resetInput
+                                                                    target="certTabView:importCertTabView:tabIdCreateCert" />
                                                                 <h:outputText value="Create a new Certificate" />
                                                             </p:commandLink></li>
                                                         <li class="list-group-item"><p:commandLink
@@ -434,7 +449,7 @@
                                                         value="* Common Name (CN):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.commonName}" id="inputReferenceNumber"
-                                                        maxlength="250" 
+                                                        maxlength="250"
                                                         placeholder="Fully qualified domain name or entrust reference number">
                                                     </p:inputText>
                                                 </div>
@@ -516,7 +531,7 @@
                                                         value="#{certificateBean.alias}" filter="true"
                                                         filterMatchMode="startsWith">
                                                         <p:ajax listener="#{certificateBean.createCSR}" update="@form" />
-                                                        <f:selectItem itemLabel="---" itemValue=""/>
+                                                        <f:selectItem itemLabel="---" itemValue="" />
                                                         <f:selectItems value="#{certificateBean.cacheAlias}" />
                                                     </p:selectOneMenu>
                                                 </div>
@@ -532,17 +547,6 @@
                                         </div>
                                         <div class="form-button-row">
                                             <div class="col-sm-12">
-                                                <script type='text/javascript'>
-                                                function enableNextCSR() {
-                                                    var nextButton = document.getElementById('certTabView:importCertTabView:formCreateCSR:csrNextButton');
-                                                    nextButton.removeAttribute("disabled");
-                                                    nextButton.classList.remove("ui-state-disabled");
-                                                }
-                                                function copyCSR() {
-                                                    document.getElementById('certTabView:importCertTabView:formCreateCSR:inputTextareaCsr').select();
-                                                    document.execCommand('copy');
-                                                }
-                                                </script>
                                                 <p:commandButton value="Copy" ajax="false" icon="ui-icon-clipboard"
                                                     disabled="#{certificateBean.disableActionCsr}"
                                                     action="#{certificateBean.enableNextCSR(true)}"
@@ -720,11 +724,6 @@
             <ui:include src="deletePassKeyDialog.xhtml" />
             <ui:include src="dlgCertMgrChain.xhtml" />
             <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
-
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-            </p:confirmDialog>
         </ui:define>
     </ui:composition>
 </h:body>
